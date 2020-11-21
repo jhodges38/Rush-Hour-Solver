@@ -8,7 +8,6 @@
 
 from time import sleep
 from collections import deque
-import sys
 import copy
 from colored import fg, attr
 
