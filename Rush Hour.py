@@ -3,13 +3,14 @@
 
 # Rush Hour Solver
 
-# In[33]:
+# In[14]:
 
 
 from time import sleep
 from collections import deque
 import copy
 from colored import fg, attr
+import itertools as it
 
 CarColors = ["CB", "CA", "C9", "C8", "C7", "C6", "C5", "C4", "C3","C2","C1", "RC"]
 TruckColors = ["T4", "T3", "T2", "T1"]
@@ -243,41 +244,40 @@ def play():
                         forward += 1 
                     else: 
                         break 
-                for choice in range(back, forward + 1):
-                    if choice != 0:
-                        testboard = copy.deepcopy(currentboards[0])
-                        plurality = 'spaces' if abs(choice) > 1 else 'space'
-                        if choice < 0:
-                            direction = 'left'
-                            for slide in range(choice, 0):
-                                testboard.board[v.bumpery][v.bumperx + slide] = k
-                                testboard.board[v.bumpery][v.bumperx + v.length + slide] = "--"
-                        else:
-                            direction = 'right'
-                            for slide in range(1, choice + 1):
-                                testboard.board[v.bumpery][v.bumperx + v.length + slide - 1] = k
-                                testboard.board[v.bumpery][v.bumperx + slide - 1] = "--"                            
-                        flatten = [item for sublist in testboard.board for item in sublist]
-                        if not hash(tuple(flatten)) in tried:
-                            tried.add(hash(tuple(flatten)))
-                            testboard.vehicles[k].bumperx += choice
-                            currentboards.append(testboard)
-                            paths.append(paths[0] + [testboard.board])
-                            moves.append(moves[0] + [k + " moves " + direction + " " + MoveWords[abs(choice) - 1] + " " + plurality])
-                            if testboard.board[2][5] == fg(1)+"RC"+attr('reset'):
-                                print("Solved!")
-                                for pboard in paths[-1]:
-                                    print(moves[-1][move])
-                                    print()
-                                    for row in range(6):
-                                        for column in range(6):
-                                            if column == 5:
-                                                print(pboard[row][column])          
-                                            else:
-                                                print(pboard[row][column], end = ' ')
-                                    print()
-                                    move += 1
-                                return
+                for choice in it.chain(range(-1, back - 1, -1), range(1, forward + 1)):
+                    testboard = copy.deepcopy(currentboards[0])
+                    plurality = 'spaces' if abs(choice) > 1 else 'space'
+                    if choice < 0:
+                        direction = 'left'
+                        for slide in range(-1, choice - 1, -1):
+                            testboard.board[v.bumpery][v.bumperx + slide] = k
+                            testboard.board[v.bumpery][v.bumperx + v.length + slide] = "--"
+                    else:
+                        direction = 'right'
+                        for slide in range(1, choice + 1):
+                            testboard.board[v.bumpery][v.bumperx + v.length + slide - 1] = k
+                            testboard.board[v.bumpery][v.bumperx + slide - 1] = "--"                            
+                    flatten = [item for sublist in testboard.board for item in sublist]
+                    if not hash(tuple(flatten)) in tried:
+                        tried.add(hash(tuple(flatten)))
+                        testboard.vehicles[k].bumperx += choice
+                        currentboards.append(testboard)
+                        paths.append(paths[0] + [testboard.board])
+                        moves.append(moves[0] + [k + " moves " + direction + " " + MoveWords[abs(choice) - 1] + " " + plurality])
+                        if testboard.board[2][5] == fg(1)+"RC"+attr('reset'):
+                            print("Solved!")
+                            for pboard in paths[-1]:
+                                print(moves[-1][move])
+                                print()
+                                for row in range(6):
+                                    for column in range(6):
+                                        if column == 5:
+                                            print(pboard[row][column])          
+                                        else:
+                                            print(pboard[row][column], end = ' ')
+                                print()
+                                move += 1
+                            return
                     
             elif v.orientation == "v":
                 back = 0
@@ -292,41 +292,40 @@ def play():
                         forward += 1 
                     else:
                         break
-                for choice in range(back, forward + 1):
-                    if choice != 0:
-                        testboard = copy.deepcopy(currentboards[0])
-                        plurality = 'spaces' if abs(choice) > 1 else 'space'
-                        if choice < 0:
-                            direction = 'up'
-                            for slide in range(choice, 0):
-                                testboard.board[v.bumpery + slide][v.bumperx] = k
-                                testboard.board[v.bumpery + v.length + slide][v.bumperx] = "--"
-                        else:
-                            direction = 'down'
-                            for slide in range(1, choice + 1):
-                                testboard.board[v.bumpery + v.length + slide - 1][v.bumperx] = k
-                                testboard.board[v.bumpery + slide - 1][v.bumperx] = "--"                            
-                        flatten = [item for sublist in testboard.board for item in sublist]
-                        if not hash(tuple(flatten)) in tried:
-                            tried.add(hash(tuple(flatten)))
-                            testboard.vehicles[k].bumpery += choice
-                            currentboards.append(testboard)
-                            paths.append(paths[0] + [testboard.board])
-                            moves.append(moves[0] + [k + " moves " + direction + " " + MoveWords[abs(choice) - 1] + " " + plurality])
-                            if testboard.board[2][5] == fg(1)+"RC"+attr('reset'):
-                                print("Solved!")
-                                for pboard in paths[-1]:
-                                    print(moves[-1][move])
-                                    print()
-                                    for row in range(6):
-                                        for column in range(6):
-                                            if column == 5:
-                                                print(pboard[row][column])          
-                                            else:
-                                                print(pboard[row][column], end = ' ')
-                                    print()
-                                    move += 1
-                                return
+                for choice in it.chain(range(-1, back - 1, -1), range(1, forward + 1)):
+                    testboard = copy.deepcopy(currentboards[0])
+                    plurality = 'spaces' if abs(choice) > 1 else 'space'
+                    if choice < 0:
+                        direction = 'up'
+                        for slide in range(-1, choice - 1, -1):
+                            testboard.board[v.bumpery + slide][v.bumperx] = k
+                            testboard.board[v.bumpery + v.length + slide][v.bumperx] = "--"
+                    else:
+                        direction = 'down'
+                        for slide in range(1, choice + 1):
+                            testboard.board[v.bumpery + v.length + slide - 1][v.bumperx] = k
+                            testboard.board[v.bumpery + slide - 1][v.bumperx] = "--"                            
+                    flatten = [item for sublist in testboard.board for item in sublist]
+                    if not hash(tuple(flatten)) in tried:
+                        tried.add(hash(tuple(flatten)))
+                        testboard.vehicles[k].bumpery += choice
+                        currentboards.append(testboard)
+                        paths.append(paths[0] + [testboard.board])
+                        moves.append(moves[0] + [k + " moves " + direction + " " + MoveWords[abs(choice) - 1] + " " + plurality])
+                        if testboard.board[2][5] == fg(1)+"RC"+attr('reset'):
+                            print("Solved!")
+                            for pboard in paths[-1]:
+                                print(moves[-1][move])
+                                print()
+                                for row in range(6):
+                                    for column in range(6):
+                                        if column == 5:
+                                            print(pboard[row][column])          
+                                        else:
+                                            print(pboard[row][column], end = ' ')
+                                print()
+                                move += 1
+                            return
                         
         currentboards.popleft()
         paths.popleft()
@@ -355,7 +354,7 @@ def setupplayer():
     
 
 
-# In[34]:
+# In[15]:
 
 
 intro()
