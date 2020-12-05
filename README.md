@@ -1,5 +1,6 @@
 # Rush-Hour-Solver
 Rush-Hour-Solver is an interactive Rush Hour logic puzzle solver.
+
 Find the physical game here: https://www.thinkfun.com/products/rush-hour/
 
 #Setup 
