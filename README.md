@@ -9,7 +9,7 @@ Find the physical game here: https://www.thinkfun.com/products/rush-hour/
   
   -enter an integer 1-5 to indicate the left bumper position
   
-  result: the red car is placed horizontally in row to where indicated
+  result: the red car is placed horizontally in row 2 of the board where indicated
 
 2. Place remaining cars and trucks
   
@@ -22,6 +22,8 @@ Find the physical game here: https://www.thinkfun.com/products/rush-hour/
   -enter 'h' or 'v' to indicate horizontal or vertical orientation of the car respectively - hit enter
   
   -enter an integer according to the displayed listing corresponding to the color of the car or truck being placed - hit enter
+  
+  result: the car or truck is placed on the board as indicated
  
  Repeat step 2 until all cars and trucks have been placed
  
