@@ -13,6 +13,7 @@ Find the physical game here: https://www.thinkfun.com/products/rush-hour/
   -enter 'h' or 'v' to indicate horizontal or vertical orientation of the car respectively - hit enter
   -enter an integer according to the displayed listing corresponding to the color of the car or truck being placed - hit enter
  Repeat 2. until all cars and trucks have been placed
+ 
  #Run
  1. Run the board solver
   -enter 'p' - hit enter
