@@ -31,11 +31,11 @@ Find the physical game here: https://www.thinkfun.com/products/rush-hour/
   
   -enter 'c' or 't' to place a car or truck respectively - hit enter
   
-  -enter an integer 1-6 to indicate the horizontal positon of the left/top bumper depending what the orientation will be - hit enter 
+   -enter 'h' or 'v' to indicate horizontal or vertical orientation of the car respectively - hit enter
   
-  -enter an integer 1-6 to indicate the vertical positon of the left/top bumper depending what the orientation will be - hit enter
+  -enter an integer 1-dimensions to indicate the horizontal positon of the left/top bumper depending what the orientation will be (left to right) - hit enter 
   
-  -enter 'h' or 'v' to indicate horizontal or vertical orientation of the car respectively - hit enter
+  -enter an integer 1-dimensions to indicate the vertical positon of the left/top bumper depending what the orientation will be (top to bottom) - hit enter
   
   -enter an integer according to the displayed listing corresponding to the color of the car or truck being placed - hit enter
   
