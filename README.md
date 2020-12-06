@@ -4,6 +4,7 @@ Rush-Hour-Solver is an interactive Rush Hour logic puzzle solver.
 Find the physical game here: https://www.thinkfun.com/products/rush-hour/
 
 #Setup 
+
 1. Select if you want to solve a traditional 6x6 board or an extended one
   
   -enter 't' or 'e' for traditional or extended respectively
