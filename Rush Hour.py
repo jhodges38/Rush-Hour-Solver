@@ -3,7 +3,7 @@
 
 # Rush Hour Solver
 
-# In[14]:
+# In[10]:
 
 
 from time import sleep
@@ -14,7 +14,42 @@ import itertools as it
 
 CarColors = ["CB", "CA", "C9", "C8", "C7", "C6", "C5", "C4", "C3","C2","C1", "RC"]
 TruckColors = ["T4", "T3", "T2", "T1"]
-MoveWords = ['one', 'two', 'three', 'four']
+MoveWords = ['one', 'two', 'three', 'four','five', 'six', 'seven', 'eight', 'nine', 'ten']
+
+def game_exit():
+    print ('Thanks for playing!')
+    sys.exit()
+
+def intro():
+    global redrow, dims
+    print("Welcome to Rush Hour!")
+    print()
+    sleep(1)
+    version = "a"
+    while version not in ["t","e","q"]:
+        print("Would you like to solve a traditional or extended board?")
+        print()
+        version = input("t) Traditional   e) Extended   q) Quit ")
+    
+    if version == "q":
+        game_exit_exit()
+    elif version == "t":
+        redrow = 2
+        dims = 6
+    else:
+        valid = False
+        while valid == False:
+            try:
+                dims = int(input("What would you like the board dimension to be? Enter a positive integer between 5 and 10."))
+            except:
+                dims = -1
+            if 5 <= dims <= 10:
+                try:
+                    redrow = int(input("What row would you like the red car to be on? Enter a positive integer between 1 and dimension."))-1
+                except:
+                    redrow = -1
+                if 1 <= redrow <= dims:
+                    valid = True
 
 class Vehicle:
     
@@ -33,12 +68,11 @@ class Vehicle:
     def __str__(self):
         return self.color + self.orientation + "(" + self.bumperx + "," + self.bumpery + ")"
 
-
-
 class Board:
+    global dims
     
     def __init__(self):
-        self.board = [["--" for num in range(6)]for nums in range(6)]
+        self.board = [["--" for num in range(dims)]for nums in range(dims)]
         self.vehicles = {}
     
     def vehicle_add(self, Vehicle, coloring):
@@ -54,21 +88,15 @@ class Board:
                 self.board[Vehicle.bumpery + cell][Vehicle.bumperx] = coloring + Vehicle.color + attr('reset')
 
     def get_board(self):
-        for row in range(6):
-            for column in range(6):
-                if column == 5:
+        for row in range(dims):
+            for column in range(dims):
+                if column == (dims-1):
                     print(self.board[row][column])          
                 else:
                     print(self.board[row][column], end = ' ')
-    
-
-def intro():
-    print("Welcome to Rush Hour!")
-    print()
-    sleep(1)
 
 def setupauto():
-    global B, vehicle
+    global B, vehicle, dims, redrow
     
     B = Board()
     B.get_board()
@@ -80,11 +108,11 @@ def setupauto():
     
     while valid == False:
         try:
-            redx = int(input("Let's start with the red car. What position would you like the rear bumper to be in? Enter an integer 1-5."))-1
+            redx = int(input("Let's start with the red car. What position would you like the rear bumper to be in? Enter an integer 1-"+str(dims-1)+"."))-1
         except:
             redx = -1
-        if 0 <= redx <= 4:
-            vehicle = Vehicle("h",redx,2,"Car")
+        if 0 <= redx <= (dims - 2):
+            vehicle = Vehicle("h",redx,redrow,"Car")
             B.vehicle_add(vehicle, fg(1))
             valid = True
         else:
@@ -97,15 +125,15 @@ def setupauto():
             
 
 def create_car():
-    global B, vehicle
+    global B, vehicle, dims
     
     valid = False
     
     while valid == False:
         valid = True
         try:
-            bumperx = int(input("What horizontal position would you like the rear bumper to be in? Enter an integer 1-6."))-1
-            bumpery = int(input("What vertical position would you like the rear bumper to be in? Enter an integer 1-6."))-1
+            bumperx = int(input("What horizontal position would you like the rear bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
+            bumpery = int(input("What vertical position would you like the rear bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
         except:
             bumperx = -1
             bumpery = -1
@@ -142,13 +170,13 @@ def create_car():
             valid = False
             
         if orientation == "h":
-            if 0 <= bumperx <= 4 and 0 <= bumpery <= 5 and B.board[bumpery][bumperx] == "--" and B.board[bumpery][bumperx + 1] == "--":
+            if 0 <= bumperx <= (dims-2) and 0 <= bumpery <= (dims-1) and B.board[bumpery][bumperx] == "--" and B.board[bumpery][bumperx + 1] == "--":
                 vehicle = Vehicle(orientation,bumperx,bumpery,"Car")
                 B.vehicle_add(vehicle, colorcode)
             else:
                 valid = False
         elif orientation == "v":
-            if 0 <= bumperx <= 5 and 0 <= bumpery <= 4 and B.board[bumpery][bumperx] == "--" and B.board[bumpery + 1][bumperx] == "--":
+            if 0 <= bumperx <= (dims-1) and 0 <= bumpery <= (dims-2) and B.board[bumpery][bumperx] == "--" and B.board[bumpery + 1][bumperx] == "--":
                 vehicle = Vehicle(orientation,bumperx,bumpery,"Car")
                 B.vehicle_add(vehicle, colorcode)
             else:
@@ -162,15 +190,15 @@ def create_car():
               
     
 def create_truck():
-    global B, vehicle
+    global B, vehicle, dims
     
     valid = False
     
     while valid == False:
         valid = True
         try:
-            bumperx = int(input("What horizontal position would you like the rear bumper to be in? Enter an integer 1-6."))-1
-            bumpery = int(input("What vertical position would you like the rear bumper to be in? Enter an integer 1-6."))-1
+            bumperx = int(input("What horizontal position would you like the rear bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
+            bumpery = int(input("What vertical position would you like the rear bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
         except:
             bumperx = -1
             bumpery = -1
@@ -193,13 +221,13 @@ def create_truck():
             valid = False
         
         if orientation == "h":
-            if 0 <= bumperx <= 3 and 0 <= bumpery <= 5 and B.board[bumpery][bumperx] == "--" and B.board[bumpery][bumperx + 1] == "--" and B.board[bumpery][bumperx + 2] == "--":
+            if 0 <= bumperx <= (dims-3) and 0 <= bumpery <= (dims-1) and B.board[bumpery][bumperx] == "--" and B.board[bumpery][bumperx + 1] == "--" and B.board[bumpery][bumperx + 2] == "--":
                 vehicle = Vehicle(orientation,bumperx,bumpery,"Truck")
                 B.vehicle_add(vehicle, colorcode)
             else:
                 valid = False
         elif orientation == "v":
-            if 0 <= bumperx <= 5 and 0 <= bumpery <= 3 and B.board[bumpery][bumperx] == "--" and B.board[bumpery + 1][bumperx] == "--" and B.board[bumpery + 2][bumperx] == "--":
+            if 0 <= bumperx <= (dims-1) and 0 <= bumpery <= (dims-3) and B.board[bumpery][bumperx] == "--" and B.board[bumpery + 1][bumperx] == "--" and B.board[bumpery + 2][bumperx] == "--":
                 vehicle = Vehicle(orientation,bumperx,bumpery,"Truck")
                 B.vehicle_add(vehicle, colorcode)
             else:
@@ -211,13 +239,8 @@ def create_truck():
     B.get_board()
     print()
     
-
-def game_exit():
-    print ('Thanks for playing!')
-    sys.exit()
-
 def play():
-    global B
+    global B, dims, redrow
     
     tried = set()
     origflatten = [item for sublist in B.board for item in sublist]
@@ -239,7 +262,7 @@ def play():
                         back -= 1
                     else: 
                         break
-                while v.bumperx + v.length + forward <= 5:
+                while v.bumperx + v.length + forward <= (dims-1):
                     if currentboards[0].board[v.bumpery][v.bumperx + v.length + forward] == "--":
                         forward += 1 
                     else: 
@@ -264,14 +287,14 @@ def play():
                         currentboards.append(testboard)
                         paths.append(paths[0] + [testboard.board])
                         moves.append(moves[0] + [k + " moves " + direction + " " + MoveWords[abs(choice) - 1] + " " + plurality])
-                        if testboard.board[2][5] == fg(1)+"RC"+attr('reset'):
+                        if testboard.board[redrow][(dims-1)] == fg(1)+"RC"+attr('reset'):
                             print("Solved!")
                             for pboard in paths[-1]:
                                 print(moves[-1][move])
                                 print()
-                                for row in range(6):
-                                    for column in range(6):
-                                        if column == 5:
+                                for row in range(dims):
+                                    for column in range(dims):
+                                        if column == (dims-1):
                                             print(pboard[row][column])          
                                         else:
                                             print(pboard[row][column], end = ' ')
@@ -287,7 +310,7 @@ def play():
                         back -= 1 
                     else:
                         break
-                while v.bumpery + v.length + forward <= 5:
+                while v.bumpery + v.length + forward <= (dims-1):
                     if currentboards[0].board[v.bumpery + v.length + forward][v.bumperx] == "--":
                         forward += 1 
                     else:
@@ -312,14 +335,14 @@ def play():
                         currentboards.append(testboard)
                         paths.append(paths[0] + [testboard.board])
                         moves.append(moves[0] + [k + " moves " + direction + " " + MoveWords[abs(choice) - 1] + " " + plurality])
-                        if testboard.board[2][5] == fg(1)+"RC"+attr('reset'):
+                        if testboard.board[redrow][(dims-1)] == fg(1)+"RC"+attr('reset'):
                             print("Solved!")
                             for pboard in paths[-1]:
                                 print(moves[-1][move])
                                 print()
-                                for row in range(6):
-                                    for column in range(6):
-                                        if column == 5:
+                                for row in range(dims):
+                                    for column in range(dims):
+                                        if column == (dims-1):
                                             print(pboard[row][column])          
                                         else:
                                             print(pboard[row][column], end = ' ')
@@ -354,7 +377,7 @@ def setupplayer():
     
 
 
-# In[15]:
+# In[11]:
 
 
 intro()
