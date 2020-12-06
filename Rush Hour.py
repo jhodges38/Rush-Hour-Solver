@@ -3,7 +3,7 @@
 
 # Rush Hour Solver
 
-# In[10]:
+# In[3]:
 
 
 from time import sleep
@@ -108,7 +108,7 @@ def setupauto():
     
     while valid == False:
         try:
-            redx = int(input("Let's start with the red car. What position would you like the rear bumper to be in? Enter an integer 1-"+str(dims-1)+"."))-1
+            redx = int(input("Let's start with the red car. What position would you like the left bumper to be in? Enter an integer 1-"+str(dims-1)+"."))-1
         except:
             redx = -1
         if 0 <= redx <= (dims - 2):
@@ -131,14 +131,18 @@ def create_car():
     
     while valid == False:
         valid = True
+        print("What is the orientation of your car?")
+        orientation = input("h) Horizontal  v) Vertical ")
+        if orientation == "h":
+            bumper = "left"
+        else:
+            bumper = "top"
         try:
-            bumperx = int(input("What horizontal position would you like the rear bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
-            bumpery = int(input("What vertical position would you like the rear bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
+            bumperx = int(input("What horizontal position would you like the "+bumper+" bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
+            bumpery = int(input("What vertical position would you like the "+bumper+" bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
         except:
             bumperx = -1
             bumpery = -1
-        print("What is the orientation of your car?")
-        orientation = input("h) Horizontal  v) Vertical ")
         print(fg(244) + "1. Grey" + attr('reset')+ "\n"+ fg(208) + "2. Orange" + attr('reset')+ "\n"+ fg(211) + "3. Pink" + attr('reset')+ "\n"+ fg(99) + "4. Purple" + attr('reset')+ "\n"+ fg(29) + "5. Green" + attr('reset')+ "\n"+ fg(120) + "6. Light Green" + attr('reset')+ "\n"+ fg(106) + "7. Pea Green" + attr('reset')+ "\n"+ fg(95) + "8. Brown" + attr('reset')+ "\n"+ fg(223) + "9. Beige" + attr('reset')+ "\n"+ fg(227) + "10. Light Yellow" + attr('reset')+ "\n"+ fg(81) + "11. Light Blue" + attr('reset')+ "\n")
         try:
             colornum = int(input("Enter the color of your car 1 through 11:"))
@@ -196,14 +200,18 @@ def create_truck():
     
     while valid == False:
         valid = True
+        print("What is the orientation of your truck?")
+        orientation = input("h) Horizontal  v) Vertical ")
+        if orientation == "h":
+            bumper = "left"
+        else:
+            bumper = "top"
         try:
-            bumperx = int(input("What horizontal position would you like the rear bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
-            bumpery = int(input("What vertical position would you like the rear bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
+            bumperx = int(input("What horizontal position would you like the "+bumper+" bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
+            bumpery = int(input("What vertical position would you like the "+bumper+" bumper to be in? Enter an integer 1-"+str(dims)+"."))-1
         except:
             bumperx = -1
             bumpery = -1
-        print("What is the orientation of your truck?")
-        orientation = input("h) Horizontal  v) Vertical ")
         print(fg(183) + "1. Light Purple" + attr('reset') + "\n" + fg(220) + "2. Yellow" + attr('reset')+ "\n"+ fg(33) + "3. Blue" + attr('reset')+ "\n"+ fg(49) + "4. Teal"+ attr('reset') + "\n")
         try:
             colornum = int(input("Enter the color of your truck 1 through 4:"))
