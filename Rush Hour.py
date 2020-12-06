@@ -12,8 +12,8 @@ import copy
 from colored import fg, attr
 import itertools as it
 
-CarColors = ["CB", "CA", "C9", "C8", "C7", "C6", "C5", "C4", "C3","C2","C1", "RC"]
-TruckColors = ["T4", "T3", "T2", "T1"]
+CarColors = ["CI","CH","CG","CF","CE","CD","CC", "CB", "CA", "C9", "C8", "C7", "C6", "C5", "C4", "C3", "C2", "C1", "RC"]
+TruckColors = ["TI","TH","TG", "TF", "TE", "TD", "TC", "TB", "TA", "T9", "T8", "T7", "T6", "T5", "T4", "T3", "T2", "T1"]
 MoveWords = ['one', 'two', 'three', 'four','five', 'six', 'seven', 'eight', 'nine', 'ten']
 
 def game_exit():
@@ -377,17 +377,10 @@ def setupplayer():
     
 
 
-# In[11]:
+# In[ ]:
 
 
 intro()
 setupauto()
 setupplayer()
-
-
-
-# In[ ]:
-
-
-
 
