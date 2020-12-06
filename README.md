@@ -22,7 +22,7 @@ Find the physical game here: https://www.thinkfun.com/products/rush-hour/
   
   -enter an integer 1-dimension to indicate the red car's row
   
-  -enter an integer 1-5 to indicate the red car's left bumper position
+  -enter an integer 1-(dimension-1) to indicate the red car's left bumper position
   
   result: the board is extended as indicated,and the red car is placed on the row and horizontal position indicated
 
